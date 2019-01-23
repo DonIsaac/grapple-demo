@@ -12,18 +12,12 @@
 		{ label: :export, url: '#', "data-toggle" => 'modal', "data-target" => "#export_dialog" }
 	]
 %>
-<style>
-ul.search-form-opts > li{
-	display: inline
-}
-</style>
 <%= table_for(columns, @zip_codes, html: { class: 'my-custom-class-name' }, builder: MyAjaxTableBuilder) do |t| %>
 	<%= t.colgroup %>
 	<%= t.header do %>
 		<%= t.infobar %>
 		<%= t.toolbar do %>
-			<%= t.ransack_form ransack: @q do%>
-			<% end %>
+			<%= t.ransack_form ransack: @q, search: :state_name_or_zip_or_city_cont %>
 		<% end %>
 		<%= t.column_headings %>
 	<% end %>
