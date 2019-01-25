@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -u
 set -e
 
 CONTAINER="grapple-demo"
@@ -46,7 +45,7 @@ function start() {
 #   * force: boolean - if true, the container will also be removed
 #
 # returns - the exit code of docker stop or docker container rm
-function stop(force) {
+function stop() {
 	force=$1
 	if [ "$force" = true ] ; then
 		echo "dev: Stopping and removing container..."
@@ -110,7 +109,7 @@ case "$1" in
 		;;
 
 	dev|local|loc)
-		if [ "$2" == "-u" || "$2" == "--update" ]; then
+		if [ ! -z "$2" ] && [ "$2" == "-u" || "$2" == "--update" ]; then
 			echo "dev: updating grapple..."
 			$bin_loc/bundle update grapple
 		fi
