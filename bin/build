@@ -1,3 +1,4 @@
 #!/bin/bash
 
 docker build -t grapple-demo-img -f Dockerfile.prod .
+# docker run --privileged -v $(pwd):/grapple-demo -p 5000:5000/tcp --name $CONTAINER -it $IMAGE
