@@ -24,7 +24,10 @@ Rails.application.routes.draw do
 	resources :ajax_history_multi
 	resources :states
   resources :zip_codes
-  resources :ransack
+  #resources :ransack
+  get 'ransack', to: 'ransack#index', as: :ransack_index
+  get 'ransack/table_one', to: 'ransack#table_one', as: :ransack_table_one
+  get 'ransack/table_two', to: 'ransack#table_two', as: :ransack_table_two
 	
   root 'home#index', as: 'home'
 

@@ -5,21 +5,21 @@
 		{ label: :zip, sort: 'zip', width: 120 },
 		{ label: :city, sort: 'city', width: 200 },
 		{ label: :county, sort: 'county', width: 200 },	
-		{ label: :state, sort: 'states.name', width: 150 }
+		{ label: :state, sort: 'states_name', width: 150 }
 	]
 
 	actions = [
 		{ label: :export, url: '#', "data-toggle" => 'modal', "data-target" => "#export_dialog" }
 	]
 %>
-<%= table_for(columns, @zip_codes, html: { class: 'my-custom-class-name' }, builder: MyAjaxTableBuilder) do |t| %>
+<%= table_for(columns, @zip_codes1, html: { class: 'my-custom-class-name' }, builder: MyAjaxTableBuilder, url: ransack_table_one_path) do |t| %>
 	<%= t.colgroup %>
 	<%= t.header do %>
 		<%= t.infobar %>
 		<%= t.toolbar do %>
-			<%= t.ransack_form ransack: @q, search: :state_name_or_zip_or_city_cont %>
+			<%= t.ransack_form ransack: @q, search: :state_name_or_zip_or_city_or_county_cont %>
 		<% end %>
-		<%= t.column_headings %>
+		<%= t.ransack_colhead ransack: @q %>
 	<% end %>
 	<%= t.footer %>
 	<%= t.body do |item| %>
@@ -29,32 +29,7 @@
 		<td><%= link_to item.zip, item %></td>
 		<td><%= item.city %></td>
 		<td><%= item.county %></td>
-		<td><%= item.state.name %></td>
+		<td><%= if item.state.nil? then "" else item.state.name end %></td>
 	<% end %>
 <% end %>
 
-
-
-<%#= search_form_for @q do |f| %>
-				<!--ul class="search-form-opts">
-  				<%# Search if the zip field contains...%>
-				<li>
-  				<%#= f.label :zip_cont %>
-  				<%#= f.search_field :zip_cont %>
-				</li>
-				<li>
-  				<%# Search if an associated state.name starts with...%>
-  				<%#= f.label :state_name_start %>
-  				<%#= f.search_field :state_name_start %>
-				</li>
-				<li>
-  				<%# Attributes may be chained. Search multiple attributes for one value...%>
-  				<%#= f.label :state_name_or_zip_or_city_cont %>
-  				<%#= f.search_field :state_name_or_zip_or_city_cont %>
-				</li>
-				<li>
-  				<%#= f.submit %>
-				</li>
-				</ul-->
-				<%# end %>
-			<%#= t.actions actions %>
