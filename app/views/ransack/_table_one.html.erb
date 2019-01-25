@@ -1,0 +1,35 @@
+<%
+	columns = [
+		{ },
+		# When label is a symbol, it is automatically translated
+		{ label: :zip, sort: 'zip', width: 120 },
+		{ label: :city, sort: 'city', width: 200 },
+		{ label: :county, sort: 'county', width: 200 },	
+		{ label: :state, sort: 'states_name', width: 150 }
+	]
+
+	actions = [
+		{ label: :export, url: '#', "data-toggle" => 'modal', "data-target" => "#export_dialog" }
+	]
+%>
+<%= table_for(columns, @zip_codes1, html: { class: 'my-custom-class-name' }, builder: MyAjaxTableBuilder, url: ransack_table_one_path) do |t| %>
+	<%= t.colgroup %>
+	<%= t.header do %>
+		<%= t.infobar %>
+		<%= t.toolbar do %>
+			<%= t.ransack_form ransack: @q, search: :state_name_or_zip_or_city_or_county_cont %>
+		<% end %>
+		<%= t.ransack_colhead ransack: @q %>
+	<% end %>
+	<%= t.footer %>
+	<%= t.body do |item| %>
+		<td class="actions">
+			
+		</td>
+		<td><%= link_to item.zip, item %></td>
+		<td><%= item.city %></td>
+		<td><%= item.county %></td>
+		<td><%= if item.state.nil? then "" else item.state.name end %></td>
+	<% end %>
+<% end %>
+

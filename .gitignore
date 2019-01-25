@@ -20,7 +20,7 @@ config/secrets.yml
 /.bundle
 /vendor/bundle
 
-# Editor Files
+## IDE Configuration Files
 .vscode
 
 # these should all be checked in to normalise the environment:
